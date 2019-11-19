@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			h1{
+				text-align: center;
+				margin-right: 64px;
+			}
+			form{
+				width: 500px;
+				margin: auto;
+			}
+			input{
+				width: 300px;
+				height: 50px;
+				margin-left: 20px;
+			}
+			input:last-child{
+				margin-left: 68px;
+				width: 304px;
+				height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>修改书籍</h1>
+		<form action="ind.php" method="get">
+			书名：<input name="name"/><br>
+			价格：<input name="price"/><br>
+			作者：<input name="author"/><br>
+			简介：<input name="synopsis"/><br>
+			<input type="hidden" name="da" value="4" />
+			<input type="hidden" name="id" />
+			<input type="submit"/>
+		</form>
+		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var id=location.search.split("=")[1];
+			$.get("ind.php","da=3&id="+id,arr=>{
+				console.log(arr);
+				$("input:eq(0)").val(arr[1]);
+				$("input:eq(1)").val(arr[2]);
+				$("input:eq(2)").val(arr[3]);
+				$("input:eq(3)").val(arr[4]);
+				$("input:eq(5)").val(arr[0]);
+			},"JSON")
+		</script>
+	</body>
+</html>

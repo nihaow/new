@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			table{
+				width: 1000px;
+				margin:100px auto;
+				border: 1px solid #000000;
+				border-collapse: collapse;
+				text-align: center;
+				table-layout: fixed;
+			}
+			td{
+				border: 1px solid #000000;
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+			}
+			h1{
+				text-align: center;
+			}
+			body>button{
+				font-size: 30px;
+				position: relative;
+				left: 685px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>图书管理系统</h1>
+		<button type="button">新增书本</button>
+		<script src="jquery.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$.get("ind.php","da=0",arr=>{
+				console.log(arr);
+				var $table=$("<table></table>");
+				var tarr=["序号","书名","价格","作者","简介","操作"];
+				var $tr=$("<tr></tr>");
+				for(var i=0;i<tarr.length;i++){
+					var $td=$(`<td>${tarr[i]}</td>`)
+					$tr.append($td);
+				}
+				
+				$table.append($tr);
+				for(var r=0;r<arr.length;r++){
+					var $tr=$("<tr></tr>");
+					for(var j=0;j<arr[r].length;j++){
+						var $td=$(`<td>${arr[r][j]}</td>`);
+						$tr.append($td);
+					}
+					var $td=$(`<td><button onclick="date(this)">修改</button><button onclick="del(this)">删除</button></td>`)
+					$tr.append($td);
+					$table.append($tr);
+				}
+				$("body").append($table);
+			},"JSON")
+			$("body>button").click(()=>{
+				location="zeng.html";
+			})
+			function del(btn){
+				var id=$(btn).parent().parent().children()[0].innerHTML;
+				$.get("ind.php","da=2&id="+id,()=>{
+					history.go(0);
+				})
+			}
+			function date(btn){
+				var id=$(btn).parent().parent().children()[0].innerHTML;
+				location="date.html?id="+id;
+			}
+		</script>
+	</body>
+</html>
